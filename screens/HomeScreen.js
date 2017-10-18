@@ -11,10 +11,17 @@ export class HomeScreen extends React.Component {
 
         return (
         <View>
-            <Text>Hello, navigation</Text>
             <Button
             onPress={() => navigate('TrackScore', {numTeams: 2})}
-            title='Track Score'
+            title='Current Game'
+            />
+            <Button
+            onPress={() => navigate('CreateNewGame', {numTeams: 2})}
+            title='Create New Game'
+            />
+            <Button
+            onPress={() => navigate('PastScores', {numTeams: 2})}
+            title='Past Scores'
             />
         </View>
         );
