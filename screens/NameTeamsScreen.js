@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 class WithLabel extends React.Component {
@@ -57,6 +57,18 @@ export class NameTeamsScreen extends React.Component {
   }
 
   goToTrackScores() {
+
+    var currentGame = {
+      name: this.props.navigation.state.params.nameOfGame,
+      teams: []
+    }
+
+    this.state.teamNames.forEach((name) => {
+      currentGame.teams.push({name : name, score: 0})
+    })
+
+    AsyncStorage.setItem('currentGame', JSON.stringify(currentGame));
+
     this.props.navigation.navigate('TrackScore', {teamNames: this.state.teamNames, nameOfGame: this.props.navigation.state.params.nameOfGame})
   }
 

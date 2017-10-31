@@ -13,13 +13,6 @@ export class CreateNewGameScreen extends React.Component {
           nameOfGame : '',
           numTeams: ''
       }
-
-      // AsyncStorage.setItem("myKey", "My value here");
-
-      // AsyncStorage.getItem("myKey").then((value) => {
-      //     this.setState({"myKey": value});
-      //     console.log("hi key value")
-      // }).done();
   }
 
   render() {

@@ -1,11 +1,36 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, Button, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 export class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Welcome'
+        title: 'Welcome',
+        headerLeft : null
     };
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            hasCurrentGame : false
+        }
+    }
+
+    componentDidMount () { 
+        this._getCurrentGame().then((data) => {
+            console.log(data)
+            this.setState({hasCurrentGame : data.name ? true : false})
+            console.log(this.state.hasCurrentGame)
+        })
+      } 
+
+    async _getCurrentGame() {
+        let response = await AsyncStorage.getItem('currentGame')
+        let currentGame = await JSON.parse(response) || {}
+
+        return currentGame
+    }
+
     render() {
         const { navigate } = this.props.navigation;
 
@@ -14,6 +39,7 @@ export class HomeScreen extends React.Component {
             <Button
             onPress={() => navigate('TrackScore', {numTeams: 2})}
             title='Current Game'
+            disabled={!this.state.hasCurrentGame}
             />
             <Button
             onPress={() => navigate('CreateNewGame', {numTeams: 2})}
