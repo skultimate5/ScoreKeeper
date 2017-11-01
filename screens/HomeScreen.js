@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 export class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Welcome',
+        title: 'Home',
         headerLeft : null
     };
 
@@ -18,9 +18,7 @@ export class HomeScreen extends React.Component {
 
     componentDidMount () { 
         this._getCurrentGame().then((data) => {
-            console.log(data)
             this.setState({hasCurrentGame : data.name ? true : false})
-            console.log(this.state.hasCurrentGame)
         })
       } 
 

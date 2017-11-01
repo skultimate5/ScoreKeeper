@@ -35,6 +35,8 @@ export class TrackScoreScreen extends React.Component {
     let response = await AsyncStorage.getItem('currentGame')
     let currentGame = await JSON.parse(response) || {}
 
+    currentGame.startTime = Date.now()
+
     this.setState({currentGame : currentGame})
     this.setState({isLoading : false})
   }
@@ -126,6 +128,8 @@ export class TrackScoreScreen extends React.Component {
   async _updatePastGames(game) {
     let response = await AsyncStorage.getItem('pastGames')
     let pastGames = await JSON.parse(response) || []
+
+    game.endTime = Date.now()
 
     pastGames.push(game)
 
