@@ -1,6 +1,7 @@
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
 
 class WithLabel extends React.Component {
     render() {
@@ -38,17 +39,16 @@ export class NameTeamsScreen extends React.Component {
     return (
       <View>
         {numArrayForTeams.map(i => {
-            return <WithLabel key={i} label={`Team Name ${i}`}>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              placeholder={`${i}`}
-              onChangeText={(text) => this.updateTeamNames(text, i)}              
-              value={this.state.teamNames[i-1]}
-            />
-          </WithLabel>
+            return <View key={i}>
+              <FormLabel>{`Team Name ${i}`}</FormLabel>
+              <FormInput placeholder={`${i}`} onChangeText={(text) => this.updateTeamNames(text, i)}/>
+            </View>
         })}
 
         <Button
+          raised
+          buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+          textStyle={{textAlign: 'center'}}
           onPress={this.goToTrackScores.bind(this)}
           title="Start Game"
         />
@@ -86,23 +86,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    // labelContainer: {
-    //     flexDirection: 'row',
-    //     marginVertical: 2,
-    //     flex: 1,
-    // },
-    // label: {
-    //     width: 115,
-    //     alignItems: 'flex-end',
-    //     marginRight: 10,
-    //     paddingTop: 2,
-    // },
-    // default: {
-    //     height: 26,
-    //     borderWidth: 0.5,
-    //     borderColor: '#0f0f0f',
-    //     flex: 1,
-    //     fontSize: 13,
-    //     padding: 4,
-    // }
+    button: {
+      borderRadius: 10,
+      marginTop: 25
+    },
 });
