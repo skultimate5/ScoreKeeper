@@ -1,18 +1,19 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { FormLabel, FormInput, Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, Header } from 'react-native-elements';
 
 export class CreateNewGameScreen extends React.Component {
   static navigationOptions = {
-    title: 'Create New Game'
+    title: 'Create New Game',
+    header: null
   };
 
   constructor(props) {
       super(props);
       this.state = { 
-          nameOfGame : '',
-          numTeams: ''
+          nameOfGame : this.props.navigation.state.params ? this.props.navigation.state.params.nameOfGame : '',
+          numTeams: this.props.navigation.state.params ? this.props.navigation.state.params.numTeams : ''
       }
   }
 
@@ -20,18 +21,29 @@ export class CreateNewGameScreen extends React.Component {
     const { params } = this.props.navigation.state;
     return (
       <View>
-        <FormLabel>Name of Game</FormLabel>
-        <FormInput onChangeText={(nameOfGame) => this.setState({nameOfGame})}/>
-        <FormLabel>Number of Teams</FormLabel>
-        <FormInput onChangeText={(numTeams) => this.setState({numTeams})}/>
-
-        <Button
-          raised
-          buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
-          textStyle={{textAlign: 'center'}}
-          onPress={this.nameTeams.bind(this)}
-          title="Next"
+        <Header
+          outerContainerStyles={{ backgroundColor: '#3D6DCC', zIndex: 1 }}
+          centerComponent={{ text: 'Create New Game', style: { color: '#fff', fontSize:20 } }} 
+          rightComponent={{
+            icon: 'home',
+            color: '#fff',
+            onPress: () => this.props.navigation.navigate('Home'),
+          }}
         />
+        <View style={{marginTop: 70}}>
+          <FormLabel>Name of Game</FormLabel>
+          <FormInput value={this.state.nameOfGame} onChangeText={(nameOfGame) => this.setState({nameOfGame})}/>
+          <FormLabel>Number of Teams</FormLabel>
+          <FormInput value={this.state.numTeams} onChangeText={(numTeams) => this.setState({numTeams})}/>
+
+          <Button
+            raised
+            buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+            textStyle={{textAlign: 'center'}}
+            onPress={this.nameTeams.bind(this)}
+            title="Next"
+          />
+        </View>
       </View>
     )
   }

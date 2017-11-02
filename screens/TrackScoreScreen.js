@@ -1,7 +1,7 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Badge, Button, Icon } from 'react-native-elements';
+import { Badge, Button, Header, Icon } from 'react-native-elements';
 
 import renderIf from '../renderIf'
 
@@ -41,14 +41,25 @@ export class TrackScoreScreen extends React.Component {
       // render if --> if there is a current game in storage, load that one
       //if coming from nameteamsscreen, load that one
       //if no game in storage or not coming from nameteamsscreen, go back home with message that says no game set
-      <View style={styles.container}>
+      <View>
+        
+        <Header
+            outerContainerStyles={{ backgroundColor: '#3D6DCC', zIndex: 1 }}
+            centerComponent={{ text: 'Track Score', style: { color: '#fff', fontSize:20 } }}
+            rightComponent={{
+            icon: 'home',
+            color: '#fff',
+            onPress: () => this.props.navigation.navigate('Home'),
+          }} 
+        />
         {renderIf(this.state.isLoading,
-          <View><Text>Loading...</Text></View>
+          <View style={{paddingTop:100}}><Text>Loading...</Text></View>
         )}
 
         {renderIf(!this.state.isLoading,
-          <View style={styles.container}>
-            <View style={styles.hero}>
+        <ScrollView>
+          <View style={[{paddingTop:100}]}>
+            <View style={{alignItems: 'center'}}>
               <Text style={styles.heading}>Game : {this.state.currentGame.name}</Text>
             </View>
             {/* <Text style={styles.text}>Game : {this.state.currentGame.name}</Text> */}
@@ -80,18 +91,10 @@ export class TrackScoreScreen extends React.Component {
               buttonStyle={[{backgroundColor: '#02968A'}, styles.lowerButtons]}
               textStyle={{textAlign: 'center'}}
               onPress={this.finishGame.bind(this)}
-              title="Save and Finish"
-            />
-
-            <Button
-              raised
-              icon={{name: 'home'}}
-              buttonStyle={[{backgroundColor: '#9C28B0'}, styles.lowerButtons]}
-              textStyle={{textAlign: 'center'}}
-              onPress={() => navigate('Home')}
-              title='Go Home'
+              title="Finish"
             />
           </View>
+          </ScrollView>
         )}
       </View>
       
@@ -173,7 +176,7 @@ const styles = StyleSheet.create({
     },
     lowerButtons: {
       borderRadius: 10,
-      marginTop: 25
+      marginTop: 50
     },
     heading: {
       color: 'black',

@@ -1,7 +1,7 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { FormLabel, FormInput, Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, Header } from 'react-native-elements';
 
 class WithLabel extends React.Component {
     render() {
@@ -18,7 +18,8 @@ class WithLabel extends React.Component {
 
 export class NameTeamsScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
-    title: `${navigation.state.params.nameOfGame}`
+    title: `${navigation.state.params.nameOfGame}`,
+    header: null
   });
 
   constructor(props) {
@@ -38,20 +39,39 @@ export class NameTeamsScreen extends React.Component {
     const numArrayForTeams = Array(parseInt(params.numTeams)).fill().map((v,i)=>(i+1));
     return (
       <View>
-        {numArrayForTeams.map(i => {
-            return <View key={i}>
-              <FormLabel>{`Team Name ${i}`}</FormLabel>
-              <FormInput placeholder={`${i}`} onChangeText={(text) => this.updateTeamNames(text, i)}/>
-            </View>
-        })}
-
-        <Button
-          raised
-          buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
-          textStyle={{textAlign: 'center'}}
-          onPress={this.goToTrackScores.bind(this)}
-          title="Start Game"
+         <Header
+          outerContainerStyles={{ backgroundColor: '#3D6DCC', zIndex: 1 }}
+          leftComponent={{
+            icon: 'arrow-back',
+            color: '#fff',
+            onPress: () => this.props.navigation.navigate('CreateNewGame', {nameOfGame : this.state.nameOfGame, numTeams: this.state.numTeams}),
+          }}
+          centerComponent={{ text: 'Name Teams', style: { color: '#fff', fontSize:20 } }} 
+          rightComponent={{
+            icon: 'home',
+            color: '#fff',
+            onPress: () => this.props.navigation.navigate('Home'),
+          }}
         />
+        <ScrollView >
+          <View style={{marginTop: 70}}>
+            {numArrayForTeams.map(i => {
+                return <View key={i}>
+                  <FormLabel>{`Team Name ${i}`}</FormLabel>
+                  <FormInput placeholder={`${i}`} onChangeText={(text) => this.updateTeamNames(text, i)}/>
+                </View>
+            })}
+
+            <Button
+              raised
+              buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+              textStyle={{textAlign: 'center'}}
+              onPress={this.goToTrackScores.bind(this)}
+              title="Start Game"
+            />
+          </View>
+        </ScrollView >
+                    
       </View>
     )
   }

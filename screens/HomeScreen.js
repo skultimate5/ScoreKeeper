@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Button } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 
 export class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -35,32 +35,38 @@ export class HomeScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         return (
-        <View style={styles.container}>
-            <Button
-              raised
-              disabled={!this.state.hasCurrentGame}
-              icon={{name: 'directions-run'}}
-              buttonStyle={[{backgroundColor: '#02968A'}, styles.button]}
-              textStyle={{textAlign: 'center'}}
-              title={`Current Game`}
-              onPress={() => navigate('TrackScore')}
+        <View>
+            <Header
+                outerContainerStyles={{ backgroundColor: '#3D6DCC', zIndex: 1 }}
+                centerComponent={{ text: 'Home', style: { color: '#fff', fontSize:20 } }} 
             />
-            <Button
-              raised
-              icon={{name: 'add-circle-outline'}}
-              buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
-              textStyle={{textAlign: 'center'}}
-              title={`New Game`}
-              onPress={() => navigate('CreateNewGame')}
-            />
-            <Button
-              raised
-              icon={{name: 'history'}}
-              buttonStyle={[{backgroundColor: '#9C28B0'}, styles.button]}
-              textStyle={{textAlign: 'center'}}
-              title={`Past Scores`}
-              onPress={() => navigate('PastScores')}
-            />
+            <View style={{paddingTop:100}}>
+                <Button
+                raised
+                disabled={!this.state.hasCurrentGame}
+                icon={{name: 'directions-run'}}
+                buttonStyle={[{backgroundColor: '#02968A'}, styles.button]}
+                textStyle={{textAlign: 'center'}}
+                title={`Current Game`}
+                onPress={() => navigate('TrackScore')}
+                />
+                <Button
+                raised
+                icon={{name: 'add-circle-outline'}}
+                buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+                textStyle={{textAlign: 'center'}}
+                title={`New Game`}
+                onPress={() => navigate('CreateNewGame')}
+                />
+                <Button
+                raised
+                icon={{name: 'history'}}
+                buttonStyle={[{backgroundColor: '#9C28B0'}, styles.button]}
+                textStyle={{textAlign: 'center'}}
+                title={`Past Scores`}
+                onPress={() => navigate('PastScores')}
+                />
+            </View>
         </View>
         );
 
