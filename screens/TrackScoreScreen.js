@@ -54,8 +54,9 @@ export class TrackScoreScreen extends React.Component {
             {/* <Text style={styles.text}>Game : {this.state.currentGame.name}</Text> */}
             {this.state.currentGame.teams.map((team, i) => {
                 return <View key={i} style={styles.teamContainer}>
+                <Text style={styles.text}>{`${team.name}  :  `}</Text>
                 <Badge containerStyle={{ backgroundColor: '#2095F2', paddingRight: 10}}>
-                  <Text style={styles.text}>{`${team.name}  :  ${team.score}`}</Text>
+                  <Text style={styles.text}>{`${team.score}`}</Text>
                 </Badge>
 
                   <Icon
@@ -70,21 +71,6 @@ export class TrackScoreScreen extends React.Component {
                     type='entypo'
                     color='#f50'
                     onPress={this.subtractOne.bind(this, i)} />
-
-                  {/* <Button
-                    raised
-                    icon={{name: 'add'}}
-                    buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
-                    textStyle={{textAlign: 'center'}}
-                    onPress={this.addOne.bind(this, i)}
-                  />
-                  <Button
-                    raised
-                    icon={{name: 'minus', type: 'entypo'}}
-                    buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
-                    textStyle={{textAlign: 'center'}}
-                    onPress={this.subtractOne.bind(this, i)}
-                  /> */}
                 </View>
             })}
 
@@ -94,7 +80,7 @@ export class TrackScoreScreen extends React.Component {
               buttonStyle={[{backgroundColor: '#02968A'}, styles.lowerButtons]}
               textStyle={{textAlign: 'center'}}
               onPress={this.finishGame.bind(this)}
-              title="Finish"
+              title="Save and Finish"
             />
 
             <Button
