@@ -1,21 +1,15 @@
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { Badge, Button, Icon } from 'react-native-elements';
+
 import renderIf from '../renderIf'
 
 export class TrackScoreScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Keep Score',
-    headerLeft: ({ navigation, screenProps}) => {
-      return (
-        <Button
-          title="Home"
-          onPress={() => navigation.navigate('Home')}
-        />
-      );
-      
-    },
+    header: null
   };
 
   constructor(props) {
@@ -54,29 +48,60 @@ export class TrackScoreScreen extends React.Component {
 
         {renderIf(!this.state.isLoading,
           <View style={styles.container}>
-            <Text style={styles.text}>Game : {this.state.currentGame.name}</Text>
+            <View style={styles.hero}>
+              <Text style={styles.heading}>Game : {this.state.currentGame.name}</Text>
+            </View>
+            {/* <Text style={styles.text}>Game : {this.state.currentGame.name}</Text> */}
             {this.state.currentGame.teams.map((team, i) => {
                 return <View key={i} style={styles.teamContainer}>
-                  <Text style={styles.text}>{`${team.name}`}   </Text>
-                  <Text style={styles.text}>    {team.score}   </Text>
-                  <Button
+                <Badge containerStyle={{ backgroundColor: '#2095F2', paddingRight: 10}}>
+                  <Text style={styles.text}>{`${team.name}  :  ${team.score}`}</Text>
+                </Badge>
+
+                  <Icon
+                    raised
+                    name='add'
+                    color='#f50'
+                    onPress={this.addOne.bind(this, i)} />
+
+                  <Icon
+                    raised
+                    name='minus'
+                    type='entypo'
+                    color='#f50'
+                    onPress={this.subtractOne.bind(this, i)} />
+
+                  {/* <Button
+                    raised
+                    icon={{name: 'add'}}
+                    buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+                    textStyle={{textAlign: 'center'}}
                     onPress={this.addOne.bind(this, i)}
-                    title="+"
-                    style={styles.button}
                   />
                   <Button
+                    raised
+                    icon={{name: 'minus', type: 'entypo'}}
+                    buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+                    textStyle={{textAlign: 'center'}}
                     onPress={this.subtractOne.bind(this, i)}
-                    title="-"
-                    style={styles.button}
-                  />
+                  /> */}
                 </View>
             })}
 
             <Button
+              raised
+              icon={{name: 'done'}}
+              buttonStyle={[{backgroundColor: '#02968A'}, styles.lowerButtons]}
+              textStyle={{textAlign: 'center'}}
               onPress={this.finishGame.bind(this)}
               title="Finish"
             />
+
             <Button
+              raised
+              icon={{name: 'home'}}
+              buttonStyle={[{backgroundColor: '#9C28B0'}, styles.lowerButtons]}
+              textStyle={{textAlign: 'center'}}
               onPress={() => navigate('Home')}
               title='Go Home'
             />
@@ -139,6 +164,7 @@ export class TrackScoreScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 30,
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
@@ -157,7 +183,15 @@ const styles = StyleSheet.create({
       fontSize: 20
     },
     button: {
-      width: '20',
-      height:'40'
+      borderRadius: 10
+    },
+    lowerButtons: {
+      borderRadius: 10,
+      marginTop: 25
+    },
+    heading: {
+      color: 'black',
+      marginTop: 10,
+      fontSize: 22,
     }
 });
