@@ -1,6 +1,7 @@
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
 
 export class CreateNewGameScreen extends React.Component {
   static navigationOptions = {
@@ -19,20 +20,15 @@ export class CreateNewGameScreen extends React.Component {
     const { params } = this.props.navigation.state;
     return (
       <View>
-        <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            placeholder={'Name of game'}
-            onChangeText={(nameOfGame) => this.setState({nameOfGame})}
-            value={this.state.nameOfGame}
-        />
-        <Text>How many teams?</Text>
-        <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(numTeams) => this.setState({numTeams})}
-            value={this.state.numTeams}
-            keyboardType={'numeric'}
-        />
+        <FormLabel>Name of Game</FormLabel>
+        <FormInput onChangeText={(nameOfGame) => this.setState({nameOfGame})}/>
+        <FormLabel>Number of Teams</FormLabel>
+        <FormInput onChangeText={(numTeams) => this.setState({numTeams})}/>
+
         <Button
+          raised
+          buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+          textStyle={{textAlign: 'center'}}
           onPress={this.nameTeams.bind(this)}
           title="Next"
         />
@@ -51,5 +47,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    button: {
+      borderRadius: 10,
+      marginTop: 25
+    },
 });
