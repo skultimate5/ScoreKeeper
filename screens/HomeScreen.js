@@ -1,11 +1,13 @@
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { Button } from 'react-native-elements';
 
 export class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'Home',
-        headerLeft : null
+        headerLeft : null,
+        header: null
     };
 
     constructor(props) {
@@ -33,19 +35,31 @@ export class HomeScreen extends React.Component {
         const { navigate } = this.props.navigation;
 
         return (
-        <View>
+        <View style={styles.container}>
             <Button
-            onPress={() => navigate('TrackScore', {numTeams: 2})}
-            title='Current Game'
-            disabled={!this.state.hasCurrentGame}
+              raised
+              disabled={!this.state.hasCurrentGame}
+              icon={{name: 'directions-run'}}
+              buttonStyle={[{backgroundColor: '#02968A'}, styles.button]}
+              textStyle={{textAlign: 'center'}}
+              title={`Current Game`}
+              onPress={() => navigate('TrackScore')}
             />
             <Button
-            onPress={() => navigate('CreateNewGame', {numTeams: 2})}
-            title='Create New Game'
+              raised
+              icon={{name: 'add-circle-outline'}}
+              buttonStyle={[{backgroundColor: '#2095F2'}, styles.button]}
+              textStyle={{textAlign: 'center'}}
+              title={`New Game`}
+              onPress={() => navigate('CreateNewGame')}
             />
             <Button
-            onPress={() => navigate('PastScores', {numTeams: 2})}
-            title='Past Scores'
+              raised
+              icon={{name: 'history'}}
+              buttonStyle={[{backgroundColor: '#9C28B0'}, styles.button]}
+              textStyle={{textAlign: 'center'}}
+              title={`Past Scores`}
+              onPress={() => navigate('PastScores')}
             />
         </View>
         );
@@ -55,10 +69,11 @@ export class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
+        marginTop:30
+    },
+    button: {
+        borderRadius: 10,
+        marginTop: 25
     }
 });
 
